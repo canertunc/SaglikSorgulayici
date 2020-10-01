@@ -1,6 +1,6 @@
 import os
 menu = """
-[1] Şeker Hastalığı Risk Oranı Ölçümü
+[1] Şeker Hastalığı Ölçümü
 [2] Obezite Hastalığı Ölçümü
 [Q] Çıkış
 
