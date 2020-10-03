@@ -1,8 +1,17 @@
 import os
 
+
+menu1 = """
+
+[1] Giriş Yap
+[2] Kayıt Ol
+
+"""
+
 menu = """
-[1] Şeker Hastalığı Ölçümü
-[2] Obezite Hastalığı Ölçümü
+
+[1] Şeker Sorgulama
+[2] Obezite Sogulama
 [3] Tansiyon Sorgulama 
 [4] Nabız Sorgulama
 [Q] Çıkış
@@ -439,35 +448,71 @@ def nabiz():
         input("Ana menüye dönmek için 'enter' tuşuna basmalısınız!")
 
 
+class Kullanici():
+    def __init__(self,ID,PAROLA,ISIM):
+        self.isim =ISIM
+        self.id = ID
+        self.parola = PAROLA
+
+class Bilgiler():
+    def __init__(self):
+        self.kullanicilar = list()
+
+    def kullanici_ol(self, ID: str, PAROLA: str, ISIM: str):
+        self.kullanicilar.append(Kullanici(ID, PAROLA, ISIM))
+        print("Uygulamamıza kayıt yaptırdığınız için teşekkür ederiz!")
+
+
 
 def main():
+    saglik = Bilgiler()
     while True:
-        os.system("cls")
-        
-        isim = input("Merhaba, isim ve soyisiminiz nedir: ")
-        print("Hoşgeldiniz", isim)
+        print(menu1)
+        giriskayit = input("Seçiminiz: ")
+        if giriskayit == "1":
+            ids = [i.id for i in saglik.kullanicilar]
+            ID = input("ID: ")
+            if ID in ids:
+                for kullanici in saglik.kullanicilar:
+                    if ID == kullanici.id:
+                        print("Hoşgeldiniz {}".format(kullanici.isim))
+                        parola = input("parolanız:")
+                        if parola == kullanici.parola:
+                            print("Giriş Yapıldı")
+                            while True:
+                                os.system("cls")
 
-        print(menu)
-        secim = input("Lütfen bir seçim yapınız: ")
+                                print(menu)
+                                secim = input("Lütfen bir seçim yapınız: ")
 
-        if secim == "1":
-            seker()
+                                if secim == "1":
+                                    seker()
 
-        elif secim == "2":
-            obezite()
+                                elif secim == "2":
+                                    obezite()
 
-        elif secim == "3":
-            tansiyon()
+                                elif secim == "3":
+                                    tansiyon()
 
-        elif secim == "4":
-            nabiz()
+                                elif secim == "4":
+                                    nabiz()
 
-        elif secim == "Q" or secim == "q":
-            quit()
+                                elif secim == "Q" or secim == "q":
+                                    quit()
 
-        else:
-            print("Hatalı tuşlama yaptınız")
+                                else:
+                                    print("Hatalı tuşlama yaptınız")
+                                    input("Ana Menüye dönmek için 'enter' tuşuna basmalısınız!")
+        elif giriskayit == "2":
+            ID = input("ID: ")
+            ISIM = input("isminiz: ")
+            PAROLA = input("parola: ")
+            saglik.kullanici_ol(ID, PAROLA, ISIM)
             input("Ana Menüye dönmek için 'enter' tuşuna basmalısınız!")
 
-main()
+        else:
+            print("Hatalı seçim yaptınız!")
+            input("Ana Menüye dönmek için 'enter' tuşuna basmalısınız!")
 
+
+main()
